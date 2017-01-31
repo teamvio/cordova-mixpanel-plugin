@@ -127,6 +127,10 @@ mixpanelCordova.people.setPushId = function(pushId, onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'people_setPushId', [pushId]);
 };
 
+mixpanelCordova.people.clearPushId = function (onSuccess, onFail) {
+  exec(onSuccess, onFail, 'Mixpanel', 'people_clearPushId');
+};
+
 mixpanelCordova.people.trackCharge = function(amount, chargeProperties, onSuccess, onFail) {
   if (typeof amount !== 'number' || !isFinite(amount)) {
     return onFail(errors.invalid('amount', amount));
