@@ -1,7 +1,7 @@
 'use strict';
 
 var exec = require('cordova/exec'),
-  mixpanel = {
+  mixpanelCordova = {
     people: {}
   },
   errors = {
@@ -14,7 +14,7 @@ var exec = require('cordova/exec'),
 // MIXPANEL API
 
 
-mixpanel.alias = mixpanel.createAlias = function(alias, originalId, onSuccess, onFail) {
+mixpanelCordova.alias = mixpanelCordova.createAlias = function(alias, originalId, onSuccess, onFail) {
   if (!alias || typeof alias !== 'string') {
     return onFail(errors.invalid('alias', alias));
   }
@@ -22,15 +22,15 @@ mixpanel.alias = mixpanel.createAlias = function(alias, originalId, onSuccess, o
   exec(onSuccess, onFail, 'Mixpanel', 'alias', [alias, originalId]);
 };
 
-mixpanel.distinctId = function(onSuccess, onFail) {
+mixpanelCordova.distinctId = function(onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'distinctId', []);
 };
 
-mixpanel.flush = function(onSuccess, onFail) {
+mixpanelCordova.flush = function(onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'flush', []);
 };
 
-mixpanel.identify = function(id, onSuccess, onFail) {
+mixpanelCordova.identify = function(id, onSuccess, onFail) {
   if (!id || typeof id !== 'string') {
     return onFail(errors.invalid('id', id));
   }
@@ -38,7 +38,7 @@ mixpanel.identify = function(id, onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'identify', [id]);
 };
 
-mixpanel.init = function(token, onSuccess, onFail) {
+mixpanelCordova.init = function(token, onSuccess, onFail) {
   if (!token || typeof token != 'string') {
     return onFail(errors.invalid('token', token));
   }
@@ -46,7 +46,7 @@ mixpanel.init = function(token, onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'init', [token]);
 };
 
-mixpanel.registerSuperProperties = function(superProperties, onSuccess, onFail) {
+mixpanelCordova.registerSuperProperties = function(superProperties, onSuccess, onFail) {
   if (!superProperties || typeof superProperties !== 'object') {
     return onFail(errors.invalid('superProperties', superProperties));
   }
@@ -54,22 +54,22 @@ mixpanel.registerSuperProperties = function(superProperties, onSuccess, onFail) 
   exec(onSuccess, onFail, 'Mixpanel', 'registerSuperProperties', [superProperties]);
 };
 
-mixpanel.reset = function(onSuccess, onFail) {
+mixpanelCordova.reset = function(onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'reset', []);
 };
 
-mixpanel.showSurvey = function(onSuccess, onFail) {
+mixpanelCordova.showSurvey = function(onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'showSurvey', []);
 };
 
-mixpanel.timeEvent = function(eventName, onSuccess, onFail) {
+mixpanelCordova.timeEvent = function(eventName, onSuccess, onFail) {
   if (!eventName || typeof eventName != 'string') {
     return onFail(errors.invalid('event', eventName));
   }
   exec(onSuccess, onFail, 'Mixpanel', 'timeEvent', [eventName]);
 };
 
-mixpanel.track = function(eventName, eventProperties, onSuccess, onFail) {
+mixpanelCordova.track = function(eventName, eventProperties, onSuccess, onFail) {
   if (!eventName || typeof eventName != 'string') {
     return onFail(errors.invalid('event', eventName));
   }
@@ -81,8 +81,8 @@ mixpanel.track = function(eventName, eventProperties, onSuccess, onFail) {
 // PEOPLE API
 
 
-/** @deprecated 2016-11-21 mixpanel.identify will set id for both events and people */
-mixpanel.people.identify = function(distinctId, onSuccess, onFail) {
+/** @deprecated 2016-11-21 mixpanelCordova.identify will set id for both events and people */
+mixpanelCordova.people.identify = function(distinctId, onSuccess, onFail) {
   if (!distinctId) {
     return onFail(errors.invalid('distinctId', distinctId));
   }
@@ -90,7 +90,7 @@ mixpanel.people.identify = function(distinctId, onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'identify', [distinctId]);
 };
 
-mixpanel.people.increment = function(peopleProperties, onSuccess, onFail) {
+mixpanelCordova.people.increment = function(peopleProperties, onSuccess, onFail) {
   if (!peopleProperties || (typeof peopleProperties === 'object' && Object.keys(peopleProperties).length === 0)) {
     return onFail(errors.invalid('properties', peopleProperties));
   }
@@ -98,7 +98,7 @@ mixpanel.people.increment = function(peopleProperties, onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'people_increment', [peopleProperties]);
 };
 
-mixpanel.people.set = function(peopleProperties, onSuccess, onFail) {
+mixpanelCordova.people.set = function(peopleProperties, onSuccess, onFail) {
   if (!peopleProperties || (typeof peopleProperties === 'object' && Object.keys(peopleProperties).length === 0)) {
     return onFail(errors.invalid('properties', peopleProperties));
   }
@@ -106,7 +106,7 @@ mixpanel.people.set = function(peopleProperties, onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'people_set', [peopleProperties]);
 };
 
-mixpanel.people.setOnce = function(peopleProperties, onSuccess, onFail) {
+mixpanelCordova.people.setOnce = function(peopleProperties, onSuccess, onFail) {
   if (!peopleProperties || (typeof peopleProperties === 'object' && Object.keys(peopleProperties).length === 0)) {
     return onFail(errors.invalid('properties', peopleProperties));
   }
@@ -119,7 +119,7 @@ mixpanel.people.setOnce = function(peopleProperties, onSuccess, onFail) {
  *        for android - this is the GCM token
  *        for ios - this is the APN token
  */
-mixpanel.people.setPushId = function(pushId, onSuccess, onFail) {
+mixpanelCordova.people.setPushId = function(pushId, onSuccess, onFail) {
   if (!pushId || typeof pushId !== 'string') {
     return onFail(errors.invalid('pushId', pushId));
   }
@@ -127,7 +127,7 @@ mixpanel.people.setPushId = function(pushId, onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'people_setPushId', [pushId]);
 };
 
-mixpanel.people.trackCharge = function(amount, chargeProperties, onSuccess, onFail) {
+mixpanelCordova.people.trackCharge = function(amount, chargeProperties, onSuccess, onFail) {
   if (typeof amount !== 'number' || !isFinite(amount)) {
     return onFail(errors.invalid('amount', amount));
   }
@@ -139,7 +139,7 @@ mixpanel.people.trackCharge = function(amount, chargeProperties, onSuccess, onFa
   exec(onSuccess, onFail, 'Mixpanel', 'people_track_charge', [amount, chargeProperties]);
 };
 
-mixpanel.people.unset = function(propertiesArray, onSuccess, onFail) {
+mixpanelCordova.people.unset = function(propertiesArray, onSuccess, onFail) {
   if (!Array.isArray(propertiesArray)) {
     return onFail(errors.invalid('propertiesArray', propertiesArray));
   }
@@ -151,4 +151,4 @@ mixpanel.people.unset = function(propertiesArray, onSuccess, onFail) {
 // Exports
 
 
-module.exports = mixpanel;
+module.exports = mixpanelCordova;

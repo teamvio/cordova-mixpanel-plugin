@@ -29,4 +29,4 @@ declare namespace Mixpanel {
   }
 }
 
-declare var mixpanel: IMixpanel;
+declare var mixpanelCordova: IMixpanel;
